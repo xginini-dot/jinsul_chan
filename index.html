@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JINSUL 병원 관리 허브</title>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--text:#292929;--muted:#777;--line:#e8e3d9;--gold:#b79b67;--gold2:#8f7548;--shadow:0 10px 30px rgba(35,35,35,.08)}
+*{box-sizing:border-box} body{margin:0;font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1180px;margin:auto;padding:34px 24px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:18px}.logo{width:178px;max-height:70px;object-fit:contain}.title h1{margin:0;font-size:25px;letter-spacing:-.6px}.title p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.toolbar{display:flex;gap:10px;margin:0 0 22px}.search{flex:1;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;font-size:15px;outline:none;box-shadow:0 3px 14px rgba(0,0,0,.025)}.search:focus{border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:var(--shadow);transition:.18s ease}.card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(35,35,35,.11)}.num{font-size:12px;color:var(--gold2);font-weight:800;letter-spacing:.7px}.name{font-size:19px;font-weight:800;margin:8px 0 5px;letter-spacing:-.4px}.desc{font-size:13px;color:var(--muted);min-height:20px;margin-bottom:18px}.actions{display:flex;flex-wrap:wrap;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:10px;padding:10px 13px;font-size:13px;font-weight:750;border:1px solid #d9d1c2;color:#4b4030;background:#faf8f4}.btn:hover{background:#f0eadf;border-color:#c8b998}.btn.primary{background:#34322e;color:#fff;border-color:#34322e}.btn.primary:hover{background:#1f1e1b}.empty{display:none;text-align:center;color:var(--muted);padding:50px 0}.foot{margin-top:28px;color:#96918a;font-size:12px;text-align:center}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start;flex-direction:column}}@media(max-width:600px){.wrap{padding:24px 15px 40px}.grid{grid-template-columns:1fr}.logo{width:150px}.title h1{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <img class="logo" src="https://xginini-dot.github.io/jinsul_v1.0/%EC%A7%84%EC%84%A4%EB%A1%9C%EA%B3%A0.png" alt="JINSUL Logo" onerror="this.style.display='none'">
+      <div class="title"><h1>병원 관리 허브</h1><p>병원별 관리 문서 및 스프레드시트 바로가기</p></div>
+    </div>
+  </div>
+
+  <div class="toolbar"><input id="search" class="search" placeholder="병원명을 검색하세요" autocomplete="off"></div>
+  <main id="grid" class="grid"></main>
+  <div id="empty" class="empty">검색 결과가 없습니다.</div>
+  <div class="foot">JINSUL · 경험과 가치를 현실화 하는 컨설팅</div>
+</div>
+
+<script>
+/* =========================================================
+   아래 hospitals 부분만 수정하시면 됩니다.
+   name : 화면에 표시할 병원명
+   desc : 설명/지역 (필요 없으면 "")
+   links: 버튼명과 이동할 주소
+   ========================================================= */
+const hospitals = [
+  {
+    name: "선부365정형외과",
+    desc: "관리자 시트",
+    links: [
+      { label: "관리 시트 열기", url: "https://docs.google.com/spreadsheets/d/1_gW8HjHJLU_duCBe8cYSkedB6EBP2RWK7Zn33A8ifHY/edit?gid=608079191#gid=608079191", primary: true }
+    ]
+  },
+  {
+    name: "화정바로365정형외과",
+    desc: "관리자 시트",
+    links: [
+      { label: "관리 시트 열기", url: "https://docs.google.com/spreadsheets/d/18X3J2TnQRucv22r3DuOzYTsY_rtCYbsZY0fmK9NOk20/edit?gid=1032897739#gid=1032897739", primary: true }
+    ]
+  },
+
+  /* 복사해서 병원을 계속 추가할 수 있습니다.
+  {
+    name: "병원 03",
+    desc: "지역 또는 설명",
+    links: [
+      { label: "통계", url: "구글시트 주소", primary: true },
+      { label: "예약관리", url: "구글시트 주소" },
+      { label: "수납검수", url: "구글시트 주소" }
+    ]
+  },
+  */
+];
+
+const grid = document.getElementById('grid');
+const empty = document.getElementById('empty');
+const search = document.getElementById('search');
+
+function esc(v){return String(v).replace(/[&<>'"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[s]));}
+function render(query=''){
+  const q=query.trim().toLowerCase();
+  const filtered=hospitals.filter(h => (h.name+' '+(h.desc||'')+' '+h.links.map(x=>x.label).join(' ')).toLowerCase().includes(q));
+  grid.innerHTML=filtered.map((h,i)=>`
+    <section class="card">
+      <div class="num">HOSPITAL ${String(i+1).padStart(2,'0')}</div>
+      <div class="name">${esc(h.name)}</div>
+      <div class="desc">${esc(h.desc||'')}</div>
+      <div class="actions">
+        ${h.links.map(l=>`<a class="btn ${l.primary?'primary':''}" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}
+      </div>
+    </section>`).join('');
+  empty.style.display=filtered.length?'none':'block';
+}
+search.addEventListener('input',e=>render(e.target.value));
+render();
+</script>
+</body>
+</html>
