@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "updatedAt": "2026-09-16T09:16:45.270Z",
+  "updatedAt": "2026-09-16T09:16:47.577Z",
   "hospitals": [
     {
       "name": "선부365정형외과",
@@ -78,6 +78,22 @@
       ]
     },
     {
+      "name": "JINSUL",
+      "desc": "JINSUL 업무",
+      "links": [
+        {
+          "label": "JINSUL PORTAL",
+          "url": "https://jinsul-portal.xginini.workers.dev/",
+          "primary": true
+        },
+        {
+          "label": "JINSUL ERP",
+          "url": "http://jinsul.co.kr/erp/login/",
+          "primary": true
+        }
+      ]
+    },
+    {
       "name": "여의도바른마취통증의학과",
       "desc": "관리자 시트",
       "links": [
@@ -149,22 +165,6 @@
         {
           "label": "비급여현황",
           "url": "https://docs.google.com/spreadsheets/d/19zado2RdPgsbUQ3Bez9nbHgzmm0jayIGTNfeoXqcADo/edit?gid=1354715354#gid=1354715354"
-        }
-      ]
-    },
-    {
-      "name": "JINSUL",
-      "desc": "JINSUL 업무",
-      "links": [
-        {
-          "label": "JINSUL PORTAL",
-          "url": "https://jinsul-portal.xginini.workers.dev/",
-          "primary": true
-        },
-        {
-          "label": "JINSUL ERP",
-          "url": "http://jinsul.co.kr/erp/login/",
-          "primary": true
         }
       ]
     },
