@@ -1,0 +1,182 @@
+{
+  "version": 2,
+  "exportedAt": "2026-09-16T04:44:58.347Z",
+  "hospitals": [
+    {
+      "name": "선부365정형외과",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "https://docs.google.com/spreadsheets/d/1_gW8HjHJLU_duCBe8cYSkedB6EBP2RWK7Zn33A8ifHY/edit?gid=208915118#gid=208915118",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/1YNVj1E2NG1zoiZFHlbRXW2kOh0yOYq1VtxogmjbRsT0/edit?gid=303216376#gid=303216376"
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1_igcN8NHV5Gp9b9cBBh0rFwRvV7qJK2kufir6J3nORQ/edit?gid=1846981041#gid=1846981041"
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1IVfMsRE2R9oU6yxOcb8rYChtFZZ1wOvBCD4UQ445Amc/edit?gid=349918578#gid=349918578"
+        }
+      ]
+    },
+    {
+      "name": "기댐마취통증의학과",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/1iZc98lUSPCD_CAhYh7Oyf3JnTXcqC5Qb3JbaXQouQkI/edit?gid=2069450618#gid=2069450618",
+          "primary": false
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1GrBlxwgxK9L-0Rgpy5JVxERpHNfXoVJczUV1qDrykOM/edit?gid=1387455785#gid=1387455785",
+          "primary": false
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1VWxI0LRLp4vkVR8v9zDwoSuCdE7-WSHhiu9OCUKGKEA/edit?gid=862380920#gid=862380920",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "name": "지축바로척365의원",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/18T81DdxN6a7KYNe4-P2LIr4SOmYyhvpustJeU13XnNA/edit?gid=2099744630#gid=2099744630",
+          "primary": false
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/12mCh__y0j9QNtpygLpHSVA2B3Vlscq8t0h0R1RTb46c/edit?gid=1184645937#gid=1184645937",
+          "primary": false
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1kq3p3f_SuHhnebtUNtI04Kvg1IbKqe_H7Ql3EbmD4Ko/edit?gid=1104987425#gid=1104987425",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "name": "여의도바른마취통증의학과",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/1QckrbiCb3TbqB4B7BzE1RCF9I-KqdJN0Vz8Zx8C0-Lk/edit?gid=2069450618#gid=2069450618",
+          "primary": false
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1IGI6maX3E_ompIxhgKxFKRKyM_LJROlQxFWcO6LsBfg/edit?gid=1349665081#gid=1349665081",
+          "primary": false
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1T5qDD56iEzPkRFbxDEZYAzO9KoY_JWxYsso-e3OJFr4/edit?gid=359834928#gid=359834928",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "name": "바른마디튼튼의원",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/14M2IPjzX8KAhut9ntjseZTf7qkFk1WvJj3haO516WWg/edit?gid=861086415#gid=861086415",
+          "primary": false
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1noG7DEy5T6h8EXshL6He11s4IGuK-EEfjT2v-BsBQ3Y/edit?gid=961160656#gid=961160656",
+          "primary": false
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1Tw1UolCCoDRtxRk-hdRq-snYRh7zDlr4dOIKwDCg_Pg/edit?gid=343495910#gid=343495910",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "name": "화정바로365정형외과",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "https://docs.google.com/spreadsheets/d/18X3J2TnQRucv22r3DuOzYTsY_rtCYbsZY0fmK9NOk20/edit?gid=208915118#gid=208915118",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/1k5Tj-JE71xId5BwQ9X3rDy2kcUxx4bvNkmmLJsypXfM/edit?gid=127577238#gid=127577238"
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1HgpBRRnIVRL9IT0eSsNK3RF7LrU56976TsD3hsUt_KA/edit?gid=787524447#gid=787524447"
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/19zado2RdPgsbUQ3Bez9nbHgzmm0jayIGTNfeoXqcADo/edit?gid=1354715354#gid=1354715354"
+        }
+      ]
+    },
+    {
+      "name": "삼성바른정형외과",
+      "desc": "관리자 시트",
+      "links": [
+        {
+          "label": "관리 시트 열기",
+          "url": "",
+          "primary": true
+        },
+        {
+          "label": "일일수납",
+          "url": "https://docs.google.com/spreadsheets/d/1UW_eVJtpEzDP3nafxyNIlIVlkkxbPFYvYJNjr4f-vkQ/edit?gid=149235737#gid=149235737",
+          "primary": false
+        },
+        {
+          "label": "예약관리",
+          "url": "https://docs.google.com/spreadsheets/d/1FL5-9_y9jZ068BtnySDKsT8Ndss2p5lMEsb1ZLYbDCs/edit?gid=1516609017#gid=1516609017",
+          "primary": false
+        },
+        {
+          "label": "비급여현황",
+          "url": "https://docs.google.com/spreadsheets/d/1PF1mkpgO9m-UyBcDj9gmjsqcpc2XdOiyoNoDzeAv9Xs/edit?gid=814174472#gid=814174472",
+          "primary": false
+        }
+      ]
+    }
+  ]
+}
