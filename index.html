@@ -77,7 +77,33 @@ function changed(msg='브라우저 저장 완료'){saveLocal();render();toast(ms
 window.moveHospital=function(i,d){const j=i+d;if(j<0||j>=hospitals.length)return;[hospitals[i],hospitals[j]]=[hospitals[j],hospitals[i]];changed('순서를 변경했습니다.')}
 function b64EncodeUnicode(str){const bytes=new TextEncoder().encode(str);let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin)}
 function b64DecodeUnicode(str){const bin=atob(str.replace(/\n/g,''));const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));return new TextDecoder().decode(bytes)}
-async function ghRequest(url,opt={}){const gh=getGh();const headers=Object.assign({'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},opt.headers||{});if(gh.token)headers['Authorization']='Bearer '+gh.token;const r=await fetch(url,Object.assign({},opt,{headers}));let body=null;try{body=await r.json()}catch(e){}if(!r.ok){const msg=body?.message||`${r.status} ${r.statusText}`;throw new Error(msg)}return body}
+async function ghRequest(url,opt={}){
+  const gh=getGh();
+  const headers=Object.assign({
+    'Accept':'application/vnd.github+json',
+    'X-GitHub-Api-Version':'2022-11-28'
+  },opt.headers||{});
+  if(gh.token) headers['Authorization']='Bearer '+gh.token;
+
+  let r;
+  try{
+    r=await fetch(url,Object.assign({},opt,{headers,cache:'no-store'}));
+  }catch(e){
+    const method=(opt.method||'GET').toUpperCase();
+    throw new Error(`NETWORK_FETCH_FAILED | ${method} 요청이 브라우저에서 완료되지 않았습니다. (${e.message||'Failed to fetch'})`);
+  }
+
+  let body=null;
+  const raw=await r.text();
+  try{ body=raw ? JSON.parse(raw) : null; }catch(e){ body={message:raw}; }
+
+  if(!r.ok){
+    const apiMsg=body?.message || r.statusText || 'Unknown error';
+    throw new Error(`HTTP ${r.status} ${r.statusText} | ${apiMsg}`);
+  }
+  return body;
+}
+
 function apiUrl(){const g=getGh();return `https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(g.branch)}`}
 async function loadFromGithub(showToast=false){const g=getGh();try{setSyncState('GitHub 불러오는 중…');const data=await ghRequest(apiUrl());const obj=JSON.parse(b64DecodeUnicode(data.content));const arr=Array.isArray(obj)?obj:obj.hospitals;if(!Array.isArray(arr))throw new Error('JSON 형식이 올바르지 않습니다.');hospitals=arr;saveLocal();render();setSyncState('GitHub 최신 데이터', 'ok');if(showToast)toast('GitHub에서 최신 설정을 불러왔습니다.');return true}catch(e){setSyncState('GitHub 불러오기 실패', 'error');if(showToast)alert('GitHub 불러오기 실패: '+e.message);return false}}
 async function saveToGithub(showAlert=true){
@@ -87,68 +113,83 @@ async function saveToGithub(showAlert=true){
     if(showAlert) openGithubSettings();
     return false;
   }
-  if(syncing) return false;
+  if(syncing){
+    if(showAlert) toast('이미 GitHub 저장 중입니다.');
+    return false;
+  }
   syncing=true;
 
-  const contentUrl=`https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}`;
-  const payload={version:4,updatedAt:new Date().toISOString(),hospitals};
+  const baseUrl=`https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}`;
+  const payload={version:5,updatedAt:new Date().toISOString(),hospitals};
   const encoded=b64EncodeUnicode(JSON.stringify(payload,null,2));
 
-  try{
-    setSyncState('GitHub 최신 버전 확인 중…');
-
-    // GitHub contents API는 업데이트 시 "현재 파일의 blob SHA"를 요구합니다.
-    // 저장할 때마다 서버에서 최신 SHA를 다시 읽어 캐시된 SHA 충돌을 피합니다.
-    async function getLatestSha(){
-      try{
-        const cur=await ghRequest(apiUrl()+`&_=${Date.now()}`,{
-          headers:{'Cache-Control':'no-cache','Pragma':'no-cache'}
-        });
-        return cur?.sha || null;
-      }catch(e){
-        if(String(e.message).includes('Not Found')) return null;
-        throw e;
-      }
-    }
-
-    async function putWithSha(sha){
-      const body={
-        message:'Update JINSUL hospital hub settings',
-        content:encoded,
-        branch:g.branch
-      };
-      if(sha) body.sha=sha;
-      return await ghRequest(contentUrl,{
-        method:'PUT',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(body)
-      });
-    }
-
-    let sha=await getLatestSha();
-    setSyncState('GitHub 저장 중…');
-
+  async function getLatestSha(){
     try{
-      await putWithSha(sha);
+      // Query parameter is only for cache-busting; ref remains the selected branch.
+      const url=`${baseUrl}?ref=${encodeURIComponent(g.branch)}&_=${Date.now()}`;
+      const cur=await ghRequest(url);
+      return cur?.sha || null;
+    }catch(e){
+      if(/^HTTP 404\b/.test(String(e.message))) return null;
+      throw e;
+    }
+  }
+
+  async function putFile(sha){
+    const body={
+      message:'Update JINSUL hospital hub settings',
+      content:encoded,
+      branch:g.branch
+    };
+    if(sha) body.sha=sha;
+
+    // Important: application/json is not a CORS-safelisted Content-Type and
+    // can cause an OPTIONS preflight. GitHub's REST API accepts JSON without
+    // us explicitly setting this header, so omit it to keep the browser request simpler.
+    return await ghRequest(baseUrl,{
+      method:'PUT',
+      body:JSON.stringify(body)
+    });
+  }
+
+  try{
+    setSyncState('최신 파일 확인 중…');
+    let sha=await getLatestSha();
+
+    setSyncState('GitHub 저장 중…');
+    try{
+      await putFile(sha);
     }catch(firstError){
-      // 다른 탭/직접 GitHub 수정 등으로 GET 직후 SHA가 바뀐 경우
-      // 최신 SHA를 다시 조회하고 한 번 자동 재시도합니다.
       const msg=String(firstError.message||'');
-      const conflict=/does not match|sha|conflict|409|422/i.test(msg);
+      const conflict=/HTTP (409|422)\b|does not match|sha/i.test(msg);
       if(!conflict) throw firstError;
 
-      setSyncState('변경 충돌 감지 · 자동 재시도…');
-      await new Promise(r=>setTimeout(r,450));
+      setSyncState('SHA 충돌 · 최신 버전 재확인 중…');
+      await new Promise(r=>setTimeout(r,500));
       sha=await getLatestSha();
-      await putWithSha(sha);
+      setSyncState('충돌 자동 재시도 중…');
+      await putFile(sha);
     }
 
     setSyncState('GitHub 저장 완료','ok');
-    if(showAlert) toast('GitHub 최신 버전에 저장했습니다.');
+    if(showAlert) toast('GitHub에 정상 저장했습니다.');
     return true;
   }catch(e){
     setSyncState('GitHub 저장 실패','error');
-    if(showAlert) alert('GitHub 저장 실패: '+e.message);
+    const msg=String(e.message||e);
+    let guide='';
+    if(msg.startsWith('NETWORK_FETCH_FAILED')){
+      guide='\n\n연결 테스트(GET)는 성공했지만 저장(PUT) 요청 자체가 브라우저/보안 프로그램에서 차단되었을 가능성이 있습니다. 개발자도구(F12) → Network에서 api.github.com 요청을 확인하면 더 정확히 구분할 수 있습니다.';
+    }else if(/^HTTP 401\b/.test(msg)){
+      guide='\n\n토큰이 만료되었거나 유효하지 않습니다.';
+    }else if(/^HTTP 403\b/.test(msg)){
+      guide='\n\n토큰의 저장소 또는 Contents 쓰기 권한을 확인해주세요.';
+    }else if(/^HTTP 404\b/.test(msg)){
+      guide='\n\n저장소명, 브랜치명 또는 JSON 파일 경로를 확인해주세요.';
+    }else if(/^HTTP (409|422)\b/.test(msg)){
+      guide='\n\nGitHub 파일 버전 충돌입니다. 최신 SHA로 자동 재시도했지만 다시 충돌했습니다.';
+    }
+    if(showAlert) alert('GitHub 저장 실패\n\n'+msg+guide);
     return false;
   }finally{
     syncing=false;
