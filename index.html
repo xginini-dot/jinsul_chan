@@ -12,50 +12,50 @@
 </head>
 <body>
 <div class="wrap" id="app">
-  <div class="top">
-    <div class="brand">
-      <img class="logo" src="https://xginini-dot.github.io/jinsul_v1.0/%EC%A7%84%EC%84%A4%EB%A1%9C%EA%B3%A0.png" alt="JINSUL Logo" onerror="this.style.display='none'">
-      <div class="title"><h1>병원 관리 허브</h1><p>병원별 관리 문서 및 스프레드시트 바로가기</p></div>
-    </div>
-    <div class="top-actions">
-      <button class="btn" id="editToggle">편집 모드</button>
-      <button class="btn" id="githubBtn">GitHub 연결 설정</button>
-      <button class="btn" id="syncBtn">GitHub 저장</button>
-      <button class="btn" id="exportBtn">설정 내보내기</button>
-      <button class="btn" id="importBtn">설정 가져오기</button>
-      <input type="file" id="importFile" accept="application/json,.json" hidden>
-    </div>
-  </div>
+<div class="top">
+<div class="brand">
+<img class="logo" src="https://xginini-dot.github.io/jinsul_v1.0/%EC%A7%84%EC%84%A4%EB%A1%9C%EA%B3%A0.png" alt="JINSUL Logo" onerror="this.style.display='none'">
+<div class="title"><h1>병원 관리 허브</h1><p>병원별 관리 문서 및 스프레드시트 바로가기</p></div>
+</div>
+<div class="top-actions">
+<button class="btn" id="editToggle">편집 모드</button>
+<button class="btn" id="githubBtn">GitHub 연결 설정</button>
+<button class="btn" id="syncBtn">GitHub 저장</button>
+<button class="btn" id="exportBtn">설정 내보내기</button>
+<button class="btn" id="importBtn">설정 가져오기</button>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+</div>
+</div>
 
-  <div class="editbar"><span><b>편집 모드</b> · 수정 내용은 브라우저에 저장되고, GitHub 연결 시 JSON에도 자동 저장됩니다. <span id="syncState"></span></span><button class="btn gold" id="addHospital">+ 병원 추가</button></div>
-  <div class="toolbar"><input id="search" class="search" placeholder="병원명을 검색하세요" autocomplete="off"></div>
-  <main id="grid" class="grid"></main>
-  <div id="empty" class="empty">검색 결과가 없습니다.</div>
-  <div class="foot">JINSUL · 경험과 가치를 현실화 하는 컨설팅</div>
+<div class="editbar"><span><b>편집 모드</b> · 수정 내용은 브라우저에 저장되고, GitHub 연결 시 JSON에도 자동 저장됩니다. <span id="syncState"></span></span><button class="btn gold" id="addHospital">+ 병원 추가</button></div>
+<div class="toolbar"><input id="search" class="search" placeholder="병원명을 검색하세요" autocomplete="off"></div>
+<main id="grid" class="grid"></main>
+<div id="empty" class="empty">검색 결과가 없습니다.</div>
+<div class="foot">JINSUL · 경험과 가치를 현실화 하는 컨설팅</div>
 </div>
 
 <div class="modal" id="modal"><div class="panel">
-  <h2 id="modalTitle">병원 편집</h2>
-  <div class="field"><label>병원명</label><input id="mName" placeholder="예: 선부365정형외과"></div>
-  <div class="field"><label>설명</label><input id="mDesc" placeholder="예: 관리자 시트"></div>
-  <div class="field"><label>바로가기 링크</label><div id="linkEditor"></div><button class="btn" id="addLink">+ 링크 추가</button></div>
-  <div class="note">※ URL은 Google Sheets뿐 아니라 웹페이지, 문서, 내부 관리 페이지 등 일반 링크도 등록할 수 있습니다.</div>
-  <div class="modal-actions"><button class="btn danger" id="deleteHospital">병원 삭제</button><div class="right"><button class="btn" id="cancelModal">취소</button><button class="btn primary" id="saveModal">저장</button></div></div>
+<h2 id="modalTitle">병원 편집</h2>
+<div class="field"><label>병원명</label><input id="mName" placeholder="예: 선부365정형외과"></div>
+<div class="field"><label>설명</label><input id="mDesc" placeholder="예: 관리자 시트"></div>
+<div class="field"><label>바로가기 링크</label><div id="linkEditor"></div><button class="btn" id="addLink">+ 링크 추가</button></div>
+<div class="note">※ URL은 Google Sheets뿐 아니라 웹페이지, 문서, 내부 관리 페이지 등 일반 링크도 등록할 수 있습니다.</div>
+<div class="modal-actions"><button class="btn danger" id="deleteHospital">병원 삭제</button><div class="right"><button class="btn" id="cancelModal">취소</button><button class="btn primary" id="saveModal">저장</button></div></div>
 </div></div>
 <div class="modal" id="githubModal"><div class="panel">
-  <h2>GitHub 연결 설정</h2>
-  <div class="field"><label>저장소</label><input id="ghRepo" value="xginini-dot/jinsul_chan"></div>
-  <div class="field"><label>브랜치</label><input id="ghBranch" value="main"></div>
-  <div class="field"><label>JSON 파일 경로</label><input id="ghPath" value="JINSUL_병원관리허브_설정.json"></div>
-  <div class="field"><label>GitHub Personal Access Token</label><input id="ghToken" type="password" placeholder="github_pat_... 또는 ghp_..."></div>
-  <div class="note">토큰은 이 브라우저의 localStorage에만 저장되며 GitHub에 업로드되는 HTML/JSON에는 포함되지 않습니다.<br>Fine-grained token 사용 시 <b>xginini-dot/jinsul_chan</b> 저장소의 <b>Contents: Read and write</b> 권한이 필요합니다.</div>
-  <div class="modal-actions"><button class="btn danger" id="disconnectGithub">연결 정보 삭제</button><div class="right"><button class="btn" id="cancelGithub">취소</button><button class="btn" id="testGithub">연결 테스트</button><button class="btn primary" id="saveGithub">설정 저장</button></div></div>
+<h2>GitHub 연결 설정</h2>
+<div class="field"><label>저장소</label><input id="ghRepo" value="xginini-dot/jinsul_chan"></div>
+<div class="field"><label>브랜치</label><input id="ghBranch" value="main"></div>
+<div class="field"><label>JSON 파일 경로</label><input id="ghPath" value="JINSUL_병원관리허브_설정.json"></div>
+<div class="field"><label>GitHub Personal Access Token</label><input id="ghToken" type="password" placeholder="github_pat_... 또는 ghp_..."></div>
+<div class="note">토큰은 이 브라우저의 localStorage에만 저장되며 GitHub에 업로드되는 HTML/JSON에는 포함되지 않습니다.Fine-grained token 사용 시 <b>xginini-dot/jinsul_chan</b> 저장소의 <b>Contents: Read and write</b> 권한이 필요합니다.</div>
+<div class="modal-actions"><button class="btn danger" id="disconnectGithub">연결 정보 삭제</button><div class="right"><button class="btn" id="cancelGithub">취소</button><button class="btn" id="testGithub">연결 테스트</button><button class="btn primary" id="saveGithub">설정 저장</button></div></div>
 </div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const STORAGE_KEY='jinsulHospitalHub.v3';
-const GH_KEY='jinsulHospitalHub.github.v1';
+const GH_KEY='jinsulHospitalHub.github.v2';
 const defaults=[{"name":"선부365정형외과","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"https://docs.google.com/spreadsheets/d/1_gW8HjHJLU_duCBe8cYSkedB6EBP2RWK7Zn33A8ifHY/edit?gid=208915118#gid=208915118","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/1YNVj1E2NG1zoiZFHlbRXW2kOh0yOYq1VtxogmjbRsT0/edit?gid=303216376#gid=303216376"},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1_igcN8NHV5Gp9b9cBBh0rFwRvV7qJK2kufir6J3nORQ/edit?gid=1846981041#gid=1846981041"},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1IVfMsRE2R9oU6yxOcb8rYChtFZZ1wOvBCD4UQ445Amc/edit?gid=349918578#gid=349918578"}]},{"name":"기댐마취통증의학과","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/1iZc98lUSPCD_CAhYh7Oyf3JnTXcqC5Qb3JbaXQouQkI/edit?gid=2069450618#gid=2069450618","primary":false},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1GrBlxwgxK9L-0Rgpy5JVxERpHNfXoVJczUV1qDrykOM/edit?gid=1387455785#gid=1387455785","primary":false},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1VWxI0LRLp4vkVR8v9zDwoSuCdE7-WSHhiu9OCUKGKEA/edit?gid=862380920#gid=862380920","primary":false}]},{"name":"지축바로척365의원","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/18T81DdxN6a7KYNe4-P2LIr4SOmYyhvpustJeU13XnNA/edit?gid=2099744630#gid=2099744630","primary":false},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/12mCh__y0j9QNtpygLpHSVA2B3Vlscq8t0h0R1RTb46c/edit?gid=1184645937#gid=1184645937","primary":false},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1kq3p3f_SuHhnebtUNtI04Kvg1IbKqe_H7Ql3EbmD4Ko/edit?gid=1104987425#gid=1104987425","primary":false}]},{"name":"여의도바른마취통증의학과","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/1QckrbiCb3TbqB4B7BzE1RCF9I-KqdJN0Vz8Zx8C0-Lk/edit?gid=2069450618#gid=2069450618","primary":false},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1IGI6maX3E_ompIxhgKxFKRKyM_LJROlQxFWcO6LsBfg/edit?gid=1349665081#gid=1349665081","primary":false},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1T5qDD56iEzPkRFbxDEZYAzO9KoY_JWxYsso-e3OJFr4/edit?gid=359834928#gid=359834928","primary":false}]},{"name":"바른마디튼튼의원","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/14M2IPjzX8KAhut9ntjseZTf7qkFk1WvJj3haO516WWg/edit?gid=861086415#gid=861086415","primary":false},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1noG7DEy5T6h8EXshL6He11s4IGuK-EEfjT2v-BsBQ3Y/edit?gid=961160656#gid=961160656","primary":false},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1Tw1UolCCoDRtxRk-hdRq-snYRh7zDlr4dOIKwDCg_Pg/edit?gid=343495910#gid=343495910","primary":false}]},{"name":"화정바로365정형외과","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"https://docs.google.com/spreadsheets/d/18X3J2TnQRucv22r3DuOzYTsY_rtCYbsZY0fmK9NOk20/edit?gid=208915118#gid=208915118","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/1k5Tj-JE71xId5BwQ9X3rDy2kcUxx4bvNkmmLJsypXfM/edit?gid=127577238#gid=127577238"},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1HgpBRRnIVRL9IT0eSsNK3RF7LrU56976TsD3hsUt_KA/edit?gid=787524447#gid=787524447"},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/19zado2RdPgsbUQ3Bez9nbHgzmm0jayIGTNfeoXqcADo/edit?gid=1354715354#gid=1354715354"}]},{"name":"삼성바른정형외과","desc":"관리자 시트","links":[{"label":"관리 시트 열기","url":"","primary":true},{"label":"일일수납","url":"https://docs.google.com/spreadsheets/d/1UW_eVJtpEzDP3nafxyNIlIVlkkxbPFYvYJNjr4f-vkQ/edit?gid=149235737#gid=149235737","primary":false},{"label":"예약관리","url":"https://docs.google.com/spreadsheets/d/1FL5-9_y9jZ068BtnySDKsT8Ndss2p5lMEsb1ZLYbDCs/edit?gid=1516609017#gid=1516609017","primary":false},{"label":"비급여현황","url":"https://docs.google.com/spreadsheets/d/1PF1mkpgO9m-UyBcDj9gmjsqcpc2XdOiyoNoDzeAv9Xs/edit?gid=814174472#gid=814174472","primary":false}]}];
 let hospitals=loadLocal(), editing=false, editIndex=null, syncTimer=null, syncing=false;
 const $=id=>document.getElementById(id), grid=$('grid'), empty=$('empty'), search=$('search'), app=$('app'), modal=$('modal'), linkEditor=$('linkEditor');
@@ -80,7 +80,81 @@ function b64DecodeUnicode(str){const bin=atob(str.replace(/\n/g,''));const bytes
 async function ghRequest(url,opt={}){const gh=getGh();const headers=Object.assign({'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},opt.headers||{});if(gh.token)headers['Authorization']='Bearer '+gh.token;const r=await fetch(url,Object.assign({},opt,{headers}));let body=null;try{body=await r.json()}catch(e){}if(!r.ok){const msg=body?.message||`${r.status} ${r.statusText}`;throw new Error(msg)}return body}
 function apiUrl(){const g=getGh();return `https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(g.branch)}`}
 async function loadFromGithub(showToast=false){const g=getGh();try{setSyncState('GitHub 불러오는 중…');const data=await ghRequest(apiUrl());const obj=JSON.parse(b64DecodeUnicode(data.content));const arr=Array.isArray(obj)?obj:obj.hospitals;if(!Array.isArray(arr))throw new Error('JSON 형식이 올바르지 않습니다.');hospitals=arr;saveLocal();render();setSyncState('GitHub 최신 데이터', 'ok');if(showToast)toast('GitHub에서 최신 설정을 불러왔습니다.');return true}catch(e){setSyncState('GitHub 불러오기 실패', 'error');if(showToast)alert('GitHub 불러오기 실패: '+e.message);return false}}
-async function saveToGithub(showAlert=true){const g=getGh();if(!g.token){setSyncState('GitHub 미연결');if(showAlert)openGithubSettings();return false}if(syncing)return false;syncing=true;try{setSyncState('GitHub 저장 중…');let sha;try{const cur=await ghRequest(apiUrl());sha=cur.sha}catch(e){if(!String(e.message).includes('Not Found'))throw e}const payload={version:3,updatedAt:new Date().toISOString(),hospitals};const body={message:'Update JINSUL hospital hub settings',content:b64EncodeUnicode(JSON.stringify(payload,null,2)),branch:g.branch};if(sha)body.sha=sha;const url=`https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}`;await ghRequest(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});setSyncState('GitHub 저장 완료','ok');if(showAlert)toast('GitHub에 저장했습니다.');return true}catch(e){setSyncState('GitHub 저장 실패','error');if(showAlert)alert('GitHub 저장 실패: '+e.message);return false}finally{syncing=false}}
+async function saveToGithub(showAlert=true){
+  const g=getGh();
+  if(!g.token){
+    setSyncState('GitHub 미연결');
+    if(showAlert) openGithubSettings();
+    return false;
+  }
+  if(syncing) return false;
+  syncing=true;
+
+  const contentUrl=`https://api.github.com/repos/${g.repo}/contents/${g.path.split('/').map(encodeURIComponent).join('/')}`;
+  const payload={version:4,updatedAt:new Date().toISOString(),hospitals};
+  const encoded=b64EncodeUnicode(JSON.stringify(payload,null,2));
+
+  try{
+    setSyncState('GitHub 최신 버전 확인 중…');
+
+    // GitHub contents API는 업데이트 시 "현재 파일의 blob SHA"를 요구합니다.
+    // 저장할 때마다 서버에서 최신 SHA를 다시 읽어 캐시된 SHA 충돌을 피합니다.
+    async function getLatestSha(){
+      try{
+        const cur=await ghRequest(apiUrl()+`&_=${Date.now()}`,{
+          headers:{'Cache-Control':'no-cache','Pragma':'no-cache'}
+        });
+        return cur?.sha || null;
+      }catch(e){
+        if(String(e.message).includes('Not Found')) return null;
+        throw e;
+      }
+    }
+
+    async function putWithSha(sha){
+      const body={
+        message:'Update JINSUL hospital hub settings',
+        content:encoded,
+        branch:g.branch
+      };
+      if(sha) body.sha=sha;
+      return await ghRequest(contentUrl,{
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(body)
+      });
+    }
+
+    let sha=await getLatestSha();
+    setSyncState('GitHub 저장 중…');
+
+    try{
+      await putWithSha(sha);
+    }catch(firstError){
+      // 다른 탭/직접 GitHub 수정 등으로 GET 직후 SHA가 바뀐 경우
+      // 최신 SHA를 다시 조회하고 한 번 자동 재시도합니다.
+      const msg=String(firstError.message||'');
+      const conflict=/does not match|sha|conflict|409|422/i.test(msg);
+      if(!conflict) throw firstError;
+
+      setSyncState('변경 충돌 감지 · 자동 재시도…');
+      await new Promise(r=>setTimeout(r,450));
+      sha=await getLatestSha();
+      await putWithSha(sha);
+    }
+
+    setSyncState('GitHub 저장 완료','ok');
+    if(showAlert) toast('GitHub 최신 버전에 저장했습니다.');
+    return true;
+  }catch(e){
+    setSyncState('GitHub 저장 실패','error');
+    if(showAlert) alert('GitHub 저장 실패: '+e.message);
+    return false;
+  }finally{
+    syncing=false;
+  }
+}
+
 function scheduleGithubSave(){const g=getGh();if(!g.token){setSyncState('브라우저에만 저장됨');return}clearTimeout(syncTimer);setSyncState('GitHub 자동 저장 대기…');syncTimer=setTimeout(()=>saveToGithub(false),700)}
 function openGithubSettings(){const g=getGh();$('ghRepo').value=g.repo;$('ghBranch').value=g.branch;$('ghPath').value=g.path;$('ghToken').value=g.token;$('githubModal').classList.add('open')}
 function closeGithubSettings(){$('githubModal').classList.remove('open')}
