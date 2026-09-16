@@ -1,7 +1,23 @@
 {
   "version": 5,
-  "updatedAt": "2026-09-16T09:16:47.577Z",
+  "updatedAt": "2026-09-16T09:16:52.382Z",
   "hospitals": [
+    {
+      "name": "JINSUL",
+      "desc": "JINSUL 업무",
+      "links": [
+        {
+          "label": "JINSUL PORTAL",
+          "url": "https://jinsul-portal.xginini.workers.dev/",
+          "primary": true
+        },
+        {
+          "label": "JINSUL ERP",
+          "url": "http://jinsul.co.kr/erp/login/",
+          "primary": true
+        }
+      ]
+    },
     {
       "name": "선부365정형외과",
       "desc": "관리자 시트",
@@ -74,22 +90,6 @@
           "label": "비급여현황",
           "url": "https://docs.google.com/spreadsheets/d/1kq3p3f_SuHhnebtUNtI04Kvg1IbKqe_H7Ql3EbmD4Ko/edit?gid=1104987425#gid=1104987425",
           "primary": false
-        }
-      ]
-    },
-    {
-      "name": "JINSUL",
-      "desc": "JINSUL 업무",
-      "links": [
-        {
-          "label": "JINSUL PORTAL",
-          "url": "https://jinsul-portal.xginini.workers.dev/",
-          "primary": true
-        },
-        {
-          "label": "JINSUL ERP",
-          "url": "http://jinsul.co.kr/erp/login/",
-          "primary": true
         }
       ]
     },
