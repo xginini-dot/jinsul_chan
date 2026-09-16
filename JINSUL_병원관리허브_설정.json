@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-16T08:52:06.483Z",
+  "updatedAt": "2026-09-16T08:54:07.858Z",
   "hospitals": [
     {
       "name": "선부365정형외과",
@@ -175,6 +175,22 @@
           "label": "비급여현황",
           "url": "https://docs.google.com/spreadsheets/d/1PF1mkpgO9m-UyBcDj9gmjsqcpc2XdOiyoNoDzeAv9Xs/edit?gid=814174472#gid=814174472",
           "primary": false
+        }
+      ]
+    },
+    {
+      "name": "JINSUL PORTAL",
+      "desc": "진설포털",
+      "links": [
+        {
+          "label": "JINSUL PORTAL",
+          "url": "https://jinsul-portal.xginini.workers.dev/",
+          "primary": true
+        },
+        {
+          "label": "JINSUL ERP",
+          "url": "http://jinsul.co.kr/erp/login/",
+          "primary": true
         }
       ]
     }
