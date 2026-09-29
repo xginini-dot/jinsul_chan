@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "updatedAt": "2026-09-29T06:06:38.757Z",
+  "updatedAt": "2026-09-29T06:06:52.744Z",
   "hospitals": [
     {
       "name": "JINSUL",
@@ -47,7 +47,7 @@
       "links": [
         {
           "label": "관리 시트 열기",
-          "url": "",
+          "url": "https://docs.google.com/spreadsheets/d/1M7UyydQJJu7O_xfzijDBynjFtYhPeTef1SbkUSL2Z0c/edit?gid=992180970#gid=992180970",
           "primary": true
         },
         {
